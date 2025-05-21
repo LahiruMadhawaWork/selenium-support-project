@@ -23,7 +23,7 @@ public class BaseTest {
     public void setUp(String url, String browserName) {
         System.out.println("browser is : " + browserName);
         ChainPluginService.getInstance().addSystemInfo("Build#", "1.0");
-        ChainPluginService.getInstance().addSystemInfo("Owner Name#", "Naveen Khunteta");
+        ChainPluginService.getInstance().addSystemInfo("Owner Name#", "Lahiru Madhawa");
         switch (browserName.toLowerCase().trim()) {
             case "chrome":
                 driver = new ChromeDriver();
