@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="TestNG Regression Suite" verbose="3" thread-count="3" parallel="tests">
+<suite name="TestNG Regression Suite" verbose="3" thread-count="1" parallel="tests">
 
     <listeners>
         <listener class-name="com.aventstack.chaintest.plugins.ChainTestListener" />
     </listeners>
 
     <test name="Login Page Test">
-        <parameter name="url" value=""/>
+        <parameter name="url" value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"/>
         <parameter name="browser" value="chrome"/>
 
         <classes>
-            <class name="tests"/>
+            <class name="tests.LoginTest"/>
         </classes>
     </test>
 

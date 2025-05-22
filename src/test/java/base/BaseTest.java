@@ -13,17 +13,31 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.AdminPage;
+import pages.HeaderPage;
+import pages.LoginPage;
 
 public class BaseTest {
 
     protected WebDriver driver;
+    protected String browserName;
+    protected String url;
+
+    protected LoginPage loginPage;
+    protected AdminPage adminPage;
+    protected HeaderPage headerPage;
 
     @Parameters({"url", "browser"})
     @BeforeTest
-    public void setUp(String url, String browserName) {
+    public void setUp(@Optional String urlParam, @Optional String browserParam) {
+        if(browserParam!=null){
+            browserName = browserParam;
+            ChainPluginService.getInstance().addSystemInfo("Build#", "1.0");
+            ChainPluginService.getInstance().addSystemInfo("Owner Name#", "Lahiru Madhawa");
+        } else {
+            browserName = "chrome";
+        }
         System.out.println("browser is : " + browserName);
-        ChainPluginService.getInstance().addSystemInfo("Build#", "1.0");
-        ChainPluginService.getInstance().addSystemInfo("Owner Name#", "Lahiru Madhawa");
         switch (browserName.toLowerCase().trim()) {
             case "chrome":
                 driver = new ChromeDriver();
@@ -46,6 +60,14 @@ public class BaseTest {
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+        if(urlParam!=null) {
+            url = urlParam;
+        } else {
+            url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+        }
+        loginPage = new LoginPage(driver);
+        adminPage = new AdminPage(driver);
+        headerPage = new HeaderPage(driver);
         driver.get(url);
     }
 
